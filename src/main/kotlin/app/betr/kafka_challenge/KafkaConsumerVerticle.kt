@@ -77,10 +77,6 @@ class KafkaConsumerVerticle : CoroutineVerticle() {
           if (eventDetails.size() == 0) {
             throw Exception("Event not found: $eventId")
           }
-          val market = client.query("SELECT * FROM markets WHERE name = ${marketId}").execute().coAwait()
-          if (market.size() == 0) {
-            throw Exception("Market not found: $marketId")
-          }
 
           // check validity of odds with external odds provider
           val oddsCheck = WebClient.create(vertx)
@@ -88,7 +84,18 @@ class KafkaConsumerVerticle : CoroutineVerticle() {
             .send()
             .coAwait()
 
-          if (oddsCheck.statusCode() == 200) {
+          // check validity of odds with external odds provider
+          val eventCheck = WebClient.create(vertx)
+            .getAbs("https://api.provider2.com/sports/$sport/$eventId/status")
+            .send()
+            .coAwait()
+
+          if (oddsCheck.statusCode() == 200 && eventCheck.statusCode() == 200) {
+            val market = client.query("SELECT * FROM markets WHERE name = ${marketId}").execute().coAwait()
+            if (market.size() == 0) {
+              throw Exception("Market not found: $marketId")
+            }
+
             client.query("UPDATE markets SET odds = ${odds} WHERE id = ${marketId}").execute().coAwait()
             throw Exception("Odds provider returned invalid status for $sport/$eventId/$marketId")
           }

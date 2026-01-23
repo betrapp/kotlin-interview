@@ -1,6 +1,7 @@
 System optimization challenge
 ==============================
-Management is complaining that the odds updates are stale in the app. Your are tasked with investigation and fixing the issue.
+Management is complaining that the odds updates are stale in the app.
+Your are tasked with investigation and fixing the issue.
 
 Please revise the files:
 KafkaProducerVerticle.kt
