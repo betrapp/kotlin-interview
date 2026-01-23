@@ -53,7 +53,7 @@ dependencies {
 
 kotlin {
   compilerOptions {
-    jvmTarget = JvmTarget.fromTarget("17")
+    jvmTarget = JvmTarget.fromTarget("21")
     languageVersion = KotlinVersion.fromVersion("2.0")
     apiVersion = KotlinVersion.fromVersion("2.0")
   }

@@ -91,10 +91,14 @@ class KafkaConsumerVerticle : CoroutineVerticle() {
 
           if (oddsCheck.statusCode() == 200 && eventCheck.statusCode() == 200) {
             val market = client.query("SELECT * FROM markets WHERE name = ${marketId}").execute().coAwait()
-            if (market.size() == 0 || market.first().getString("status") != "active") {
+            if (market.size() == 0) {
+              // notify the project manager that odds for non-existing markets are being received
+              throw Exception("Market not found or inactive: $marketId")
+            }
+            if (market.first().getString("status") != "active") {
               // notify the project manager that odds for inactive markets are being received
               // should never update odds for inactive markets, must have the latest update before deactivation
-              throw Exception("Market not found or inactive: $marketId")
+              throw Exception("Market inactive: $marketId")
             }
 
             client.query("UPDATE markets SET odds = ${odds} WHERE id = ${marketId}").execute().coAwait()
