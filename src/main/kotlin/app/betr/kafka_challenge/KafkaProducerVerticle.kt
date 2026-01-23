@@ -44,8 +44,10 @@ class KafkaProducerVerticle : CoroutineVerticle() {
           "timestamp": "${System.currentTimeMillis()}",
           "change_id": "abc123",
           "sport": "football",
-          "event_id": "Tigers vs Raptors",
-          "market_id": "moneyline",
+          "event_name": "Tigers vs Raptors",
+          "event_id": "12345",
+          "market_type": "moneyline",
+          "market_id": "ml123",
           "odds": 2.5
         }
         """.trimIndent()
