@@ -34,6 +34,11 @@ class KafkaConsumerVerticle : CoroutineVerticle() {
       put("client.id", "kafka-service-producer")
       put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer::class.java.name)
       put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer::class.java.name)
+      put("max.poll.records", "500")
+      put("fetch.min.bytes", "1048576")
+      put("fetch.max.bytes", "52428800")
+      put("max.poll.interval.ms", "300000")
+      put("enable.auto.commit", "false")
     }
 
   private lateinit var client: MySQLClient

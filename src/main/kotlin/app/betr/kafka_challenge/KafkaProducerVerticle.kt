@@ -41,6 +41,7 @@ class KafkaProducerVerticle : CoroutineVerticle() {
     while(true) {
       val payload = """
         {
+          "timestamp": "${System.currentTimeMillis()}",
           "change_id": "abc123",
           "sport": "football",
           "event_id": "Tigers vs Raptors",
