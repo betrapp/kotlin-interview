@@ -28,7 +28,6 @@ class KafkaConsumerVerticle : CoroutineVerticle() {
       put("bootstrap.servers", config.getString("bootstrapServers"))
       put("client.dns.lookup", "use_all_dns_ips")
       put("session.timeout.ms", "45000")
-      put("acks", "all")
       put("schema.registry.url", "")
       put("basic.auth.credentials.source", "USER_INFO")
       put("client.id", "kafka-service-producer")
