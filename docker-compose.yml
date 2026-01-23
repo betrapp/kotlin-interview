@@ -1,0 +1,61 @@
+services:
+  kafka-consumer:
+    working_dir: /app
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    command: java -jar kafka-challenge.jar
+    environment:
+      ROLE: 'CONSUMER'
+
+  kafka-producer:
+    working_dir: /app
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    command: java -jar kafka-challenge.jar
+    environment:
+      ROLE: 'PRODUCER'
+
+  mysql:
+    image: mysql:8.0.36
+    # NOTE: use of "mysql_native_password" is not recommended: https://dev.mysql.com/doc/refman/8.0/en/upgrading-from-previous-series.html#upgrade-caching-sha2-password
+    # (this is just an example, not intended to be a production configuration)
+    # command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD:-pass123!}'
+      MYSQL_DATABASE: '${DB_DATABASE:-kafka}'
+      MYSQL_USER: '${DB_USERNAME:-api}'
+      MYSQL_PASSWORD: '${DB_PASSWORD:-pass123!}'
+    volumes:
+      - ./db/:/docker-entrypoint-initdb.d/
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD:-pass123!}"]
+      timeout: 5s
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.9
+    ports:
+      - "9092:9092"
+      - "9094:9094"
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,KAFBAT://0.0.0.0:9094,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,KAFBAT://host.docker.internal:9094
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,KAFBAT:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
