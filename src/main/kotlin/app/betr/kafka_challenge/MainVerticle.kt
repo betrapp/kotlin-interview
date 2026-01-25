@@ -34,12 +34,32 @@ class MainVerticle : VerticleBase() {
 
 data class Player(val name: String, val score: Int)
 
+/**
+ * CODING CHALLENGE: Implement the Comparator
+ *
+ * Your task is to implement the compare() method to sort players according to these rules:
+ *
+ * 1. PRIMARY SORT: Sort by score in DESCENDING order (highest scores first)
+ * 2. SECONDARY SORT: When scores are equal, sort by name in ASCENDING order (alphabetically A-Z)
+ *
+ * Expected output after sorting:
+ *   aleksa 150
+ *   amy 100
+ *   david 100
+ *   aakansha 75
+ *   heraldo 50
+ *
+ * Note: "amy" comes before "david" because they have the same score (100),
+ * so we fall back to alphabetical ordering by name.
+ *
+ * Hint: The compare() method should return:
+ *   - A negative number if 'a' should come before 'b'
+ *   - A positive number if 'a' should come after 'b'
+ *   - Zero if they are equal
+ */
 class Checker : Comparator<Player> {
     override fun compare(a: Player, b: Player): Int {
-        // TODO: Implement the comparison logic here
-        // 1. Compare by score in descending order (highest score first)
-        // 2. If scores are equal, compare by name in ascending order (alphabetically)
+        // TODO: Implement your solution here
         return 0
-
     }
 }
