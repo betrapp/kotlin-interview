@@ -10,14 +10,14 @@ package app.betr.kafka_challenge
  *
  */
 
-suspend fun processWithLock(entityId: String, block: suspend () -> Unit) {
-    val lockKey = "lock:$entityId"
-    val acquired = redis.setnx(lockKey, "locked")
-    if (!acquired) return
-
-    try {
-        block()
-    } finally {
-        redis.del(lockKey)
-    }
-}
+//suspend fun processWithLock(entityId: String, block: suspend () -> Unit) {
+//    val lockKey = "lock:$entityId"
+//    val acquired = redis.setnx(lockKey, "locked")
+//    if (!acquired) return
+//
+//    try {
+//        block()
+//    } finally {
+//        redis.del(lockKey)
+//    }
+//}
