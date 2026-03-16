@@ -46,13 +46,8 @@ data class Player(
  * CODING CHALLENGE: Tournament Leaderboard Sorting
  * ═══════════════════════════════════════════════════════════════════════════════
  *
- * You are building a tournament leaderboard system. Your task is to implement
+*  Your task is to implement
  * a sorting algorithm that ranks players according to complex business rules.
- *
- * ❌ CONSTRAINTS:
- * - You CANNOT use Comparator interface
- * - You CANNOT use built-in sort/sortWith/sortBy/sortedBy functions
- * - You MUST implement your own sorting algorithm from scratch
  *
  * 📋 SORTING RULES (in order of priority):
  *
@@ -93,7 +88,6 @@ data class Player(
 
 fun sortPlayers(players: MutableList<Player>): List<Player> {
     // TODO: Implement your sorting algorithm here
-    // Remember: No Comparator, no built-in sort functions!
 
     return players
 }
