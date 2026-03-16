@@ -8,14 +8,14 @@ class MainVerticle : VerticleBase() {
   override fun start() : Future<*> {
 
     val players = mutableListOf(
-      Player("amy", 100, 5, 1647012000000),
-      Player("david", 100, 5, 1647010800000),
-      Player("heraldo", 50, 10, 1647015600000),
-      Player("aakansha", 75, 3, 1647013200000),
-      Player("aleksa", 150, 8, 1647009600000),
-      Player("charlie", 150, 8, 1647011400000),
-      Player("bob", 100, 7, 1647014400000),
-      Player("diana", 75, 3, 1647016200000)
+      Player("amy", 100, 5, 1647012000009),
+      Player("david", 100, 5, 1647012000008),
+      Player("heraldo", 50, 10, 1647012000000),
+      Player("aakansha", 75, 3, 1647012000000),
+      Player("aleksa", 150, 8, 1647012000003),
+      Player("charlie", 150, 8, 1647012000005),
+      Player("bob", 100, 7, 1647012000002),
+      Player("diana", 75, 3, 1647012000009)
     )
 
     // TODO: Call your sorting function here
@@ -46,7 +46,7 @@ data class Player(
  * CODING CHALLENGE: Tournament Leaderboard Sorting
  * ═══════════════════════════════════════════════════════════════════════════════
  *
-*  Your task is to implement
+ *  Your task is to implement
  * a sorting algorithm that ranks players according to complex business rules.
  *
  * 📋 SORTING RULES (in order of priority):
@@ -64,14 +64,14 @@ data class Player(
  *    (alphabetically A-Z)
  *
  * 📤 EXPECTED OUTPUT:
- *   aleksa 150 8 1647009600000
- *   charlie 150 8 1647011400000
- *   bob 100 7 1647014400000
- *   amy 100 5 1647012000000
- *   david 100 5 1647010800000
- *   aakansha 75 3 1647013200000
- *   diana 75 3 1647016200000
- *   heraldo 50 10 1647015600000
+ *    aleksa 150 8 1647012000003
+ *    charlie 150 8 1647012000005
+ *    bob 100 7 1647012000002
+ *    david 100 5 1647012000008
+ *    amy 100 5 1647012000009
+ *    aakansha 75 3 1647012000000
+ *    diana 75 3 1647012000009
+ *    heraldo 50 10 1647012000000
  *
  * 💡 EXPLANATION OF EXPECTED OUTPUT:
  * - aleksa & charlie: Both 150 points, 8 streak → aleksa earlier timestamp
