@@ -86,15 +86,9 @@ data class Player(
  * - heraldo: Lowest score (50) despite high streak
  *
  * 🎯 HINTS:
- * - Consider implementing QuickSort, MergeSort, or another O(n log n) algorithm
  * - Think about how to handle multiple comparison criteria
- * - Don't forget to handle edge cases (empty list, single element, all equal)
  * - Write helper functions to keep your code clean
  *
- * ⚡ BONUS CHALLENGES (optional):
- * - Implement in-place sorting to minimize memory usage
- * - Add performance benchmarking to measure your algorithm's efficiency
- * - Make it generic to work with any data type
  */
 
 fun sortPlayers(players: MutableList<Player>): List<Player> {
